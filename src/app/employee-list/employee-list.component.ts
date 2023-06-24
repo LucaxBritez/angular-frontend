@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
+import { EmployeeService } from '../employee.service';
 
 /* "Component" que marca esta clase TypeScript como un componente Angular y proporciona la 
 configuración de metadatos que determina cómo debe ser procesado e interpretado el componente 
@@ -18,10 +19,17 @@ export class EmployeeListComponent implements OnInit{
 
   employees: Employee[];
   
-  constructor(){}
+  constructor(private employeeService: EmployeeService){}
 
   ngOnInit(): void {
     
-  }
+    this.getEmployees();
 
+}
+
+  private getEmployees(){
+    this.employeeService.getEmployeesList().subscribe(data =>{
+      this.employees = data; 
+    })
+  }
 }
